@@ -29,7 +29,7 @@ router.post('/', upload.single('thumbnails'), async (req, res) => {
   let thumbnails = req.file?.filename
   try {
     await ProductsDao.addProduct({ ...req.body, thumbnails })
-    io.emit('products', await ProductsDao.getProducts())
+    io.emit('products', await ProductsDao.getProducts({}))
     res.redirect('/realtimeproducts?status=success')
   } catch (error) {
     res.redirect(`/realtimeproducts?status=error&error=${error.cause}`)

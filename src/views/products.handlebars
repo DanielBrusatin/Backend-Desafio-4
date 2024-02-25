@@ -1,10 +1,17 @@
-<a href="/products">home</a>
-<a href="/products?category=baño">baño</a>
-<a href="/products?category=living">living</a>
-<a href="/products?category=materas">materas</a>
-<a href="/products?category=complementos">complementos</a>
-<a href="/products?category=cocina">cocina</a>
-<a href="/carts/65d120e48d47167429465f50">carrito</a>
+<header class="d-flex">
+  <h1>Bienvenido {{first_name}} {{last_name}}</h1>
+  <a href="/api/sessions/logout" class="btn btn-primary">Logout</a>
+  <a href="/carts/65d120e48d47167429465f50" class="btn btn-primary">carrito</a>
+</header>
+<h2>Rol: {{rol}}</h2>
+<div class="d-flex">
+  <a href="/products" class="btn btn-primary">home</a>
+  <a href="/products?category=baño" class="btn btn-primary">baño</a>
+  <a href="/products?category=living" class="btn btn-primary">living</a>
+  <a href="/products?category=materas" class="btn btn-primary">materas</a>
+  <a href="/products?category=complementos" class="btn btn-primary">complementos</a>
+  <a href="/products?category=cocina" class="btn btn-primary">cocina</a>
+</div>
 
 {{#if isValid}}
 <div class="d-flex flex-wrap">
@@ -12,9 +19,11 @@
   <div class="text-center card" style="width: 18rem;">
     <div class="card-header d-flex align-items-center justify-content-between">
       Categoría: {{this.category}}
+      {{#if ../isAdmin}}
       <button class="btn btn-primary delete" data-id={{this._id}}>
         <img src="/images/tacho.png">
       </button>
+      {{/if}}
     </div>
     <img class="card-img-top card-img" src='/images/products/{{this.thumbnails}}' />
     <div class="card-body">
@@ -27,16 +36,18 @@
   </div>
   {{/each}}
 </div>
-{{#if hasPrevPage}}
-<a href={{prevLink}}>Anterior</a>
-{{/if}}
-<p>{{page}}</p>
-{{#if hasNextPage}}
-<a href={{nextLink}}>Siguiente</a>
-{{/if}}
-{{else}}
-<div>No hay productos para mostrar</div>
-{{/if}}
+<div class="d-flex">
+  {{#if hasPrevPage}}
+  <a href={{prevLink}} class="btn btn-primary">Anterior</a>
+  {{/if}}
+  <p class="h-auto m-0" style="width: 60px; text-align: center">{{page}}</p>
+  {{#if hasNextPage}}
+  <a href={{nextLink}} class="btn btn-primary">Siguiente</a>
+  {{/if}}
+  {{else}}
+  <div>No hay productos para mostrar</div>
+  {{/if}}
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -75,7 +75,7 @@ class ProductsDao {
       throw new Error('400', { cause: missingFields.length == 1 ? `Falta el campo ${missingFields.join(', ')}`: `Faltan los campos ${missingFields.join(', ')}`})
     }
     //Verifico que no se repita el codigo de producto
-    if (await Products.findOne({ code: code })) {
+    if (await Products.countDocuments({ code })) {
       throw new Error('400', { cause: `Ya existe un producto con el código ${code}` })
     } else {
       try {
