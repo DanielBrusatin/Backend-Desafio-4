@@ -1,15 +1,18 @@
 import Users from '../models/user.model.js'
+import bcrypt from 'bcrypt'
+const saltRounds = 10
 
 class UsersDao {
 
   static async getUserByCreds({ email, password }) {
     if (email && password) {
-      const user = await Users.findOne({email})
+      const user = await Users.findOne({ email })
       if (user) {
-        if (user.password === password) {
+        const match = bcrypt.compare(password, user.password)
+        if (match) {
           return user
         } else {
-          throw new Error('400', {cause: 'Contraseña incorrecta'})
+          throw new Error('400', { cause: 'Contraseña incorrecta' })
         }
       } else {
         throw new Error('400', { cause: `No existe un usuario con email: ${email}.` })
@@ -20,7 +23,7 @@ class UsersDao {
   }
 
   static async getUserById(uid) {
-    return await Users.findById(uid, { first_name: 1, last_name: 1, age: 1, email: 1, rol:1 }).lean()
+    return await Users.findById(uid, { first_name: 1, last_name: 1, age: 1, email: 1, rol: 1 }).lean()
   }
 
   static async addUser({ first_name, last_name, age, email, password }) {
@@ -42,7 +45,11 @@ class UsersDao {
       throw new Error('400', { cause: `Ya existe un usuario con el email ${email}` })
     } else {
       try {
-        await new Users(newUser).save()
+        bcrypt.hash(password, saltRounds)
+          .then(async (hash) => {
+            newUser.password = hash
+            await new Users(newUser).save()
+          })
       } catch {
         throw new Error('500', { cause: 'No se pudo crear el usuario, intentar nuevamente.' })
       }

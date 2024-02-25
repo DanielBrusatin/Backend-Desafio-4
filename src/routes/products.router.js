@@ -1,7 +1,7 @@
 import express from 'express'
-import upload from "../utils/upload.middleware.js";
+import upload from '../utils/upload.middleware.js'
 import ProductsDao from '../daos/Mongo/products.dao.js'
-import io from '../app.js';
+import io from '../app.js'
 const router = express.Router()
 
 //Obtener productos con querys

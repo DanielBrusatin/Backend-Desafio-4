@@ -1,21 +1,21 @@
-<a href="/products" class="btn btn-primary">Catalogo de productos</a>
-<div id="cart-container">
+<a href='/products' class='btn btn-primary'>Catalogo de productos</a>
+<div id='cart-container'>
   {{#if products}}
   <div>
-    <button class="btn btn-primary clear">Vaciar carrito</button>
+    <button class='btn btn-primary clear'>Vaciar carrito</button>
   </div>
-  <div class="d-flex flex-wrap" id="cart" data-cid={{_id}}>
+  <div class='d-flex flex-wrap' id='cart' data-cid={{_id}}>
     {{#each products}}
-    <div class="text-center card" style="width: 16rem;">
-      <div class="card-header">Categoría: {{this.product.category}}</div>
-      <img class="card-img-top card-img" src='/images/products/{{this.product.thumbnails}}' />
-      <div class="card-body">
-        <div class="card-title h5">{{this.product.title}}</div>
-        <div class="mb-2 text-muted card-subtitle h6">Precio: ${{this.product.price}}</div>
-        <p class="card-text">{{this.product.description}}</p>
+    <div class='text-center card' style='width: 16rem'>
+      <div class='card-header'>Categoría: {{this.product.category}}</div>
+      <img class='card-img-top card-img' src='/images/products/{{this.product.thumbnails}}' />
+      <div class='card-body'>
+        <div class='card-title h5'>{{this.product.title}}</div>
+        <div class='mb-2 text-muted card-subtitle h6'>Precio: ${{this.product.price}}</div>
+        <p class='card-text'>{{this.product.description}}</p>
       </div>
-      <div class="text-muted card-footer">Cantidad: {{this.quantity}} unidades</div>
-      <button class="btn btn-primary delete" data-pid={{this.product._id}}>Eliminar del carrito</button>
+      <div class='text-muted card-footer'>Cantidad: {{this.quantity}} unidades</div>
+      <button class='btn btn-primary delete' data-pid={{this.product._id}}>Eliminar del carrito</button>
     </div>
     {{/each}}
   </div>
@@ -24,6 +24,6 @@
   {{/if}}
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/js/cart.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>
+<script src='/js/cart.js'></script>

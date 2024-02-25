@@ -22,15 +22,15 @@ socket.on('messages', messages => {
   }
   messages.forEach(message => {
     const content = `
-    <div><span style="font-weight: bold">"${message.user.toUpperCase()}" dice:</span> ${message.message}</div>`
+    <div><span style='font-weight: bold'>'${message.user.toUpperCase()}' dice:</span> ${message.message}</div>`
     chat.innerHTML += content
   })
 })
 
 //Sweet alert para ingresar el mail del usuario
 Swal.fire({
-  title: "Ingrese su correo electronico",
-  input: "email",
+  title: 'Ingrese su correo electronico',
+  input: 'email',
 }).then(result =>{
   user = result.value
   email.innerHTML = `Usuario: ${user}`

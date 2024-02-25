@@ -19,7 +19,7 @@ class ProductsDao {
     //Armo las query, si existen, de filtro por categoria y por stock
     const filter = {}
     if(category) filter.category = category
-    if(stock == "true") filter.stock = {$gt: 0}
+    if(stock == 'true') filter.stock = {$gt: 0}
     //Si no se pasa un limite o una pagina le coloco los valores por default
     if(!parseInt(limit)) limit = 10
     if(!parseInt(page)) page = 1

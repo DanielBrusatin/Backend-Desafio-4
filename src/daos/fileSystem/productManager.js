@@ -1,5 +1,5 @@
 import fs from 'fs'
-import __dirname from "../../utils.js"
+import __dirname from '../../utils.js'
 class ProductManager {
   constructor(path) {
     this.path = __dirname + path
@@ -73,10 +73,10 @@ class ProductManager {
       const index = this.products.findIndex( product => product.id == id)
       //Compruebo que exista el producto con ese ID
       if (index !== -1) {
-        //Actualizo las keys pasadas en "newProduct" que tenga el producto excepto el ID
+        //Actualizo las keys pasadas en 'newProduct' que tenga el producto excepto el ID
         for (const key in newProduct) {
           if (this.products[index].hasOwnProperty(key) && key != 'id') {
-            this.products[index][key] = newProduct[key];
+            this.products[index][key] = newProduct[key]
           }
         }
         try {

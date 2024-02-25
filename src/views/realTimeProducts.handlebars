@@ -1,42 +1,42 @@
-<form action="/api/products" method="post" enctype="multipart/form-data" id="addProduct">
-  <label for="title">Titulo</label>
-  <input type="text" name="title" id="title" required>
-  <label for="description">Descripción</label>
-  <input type="text" name="description" id="description" required>
-  <label for="code">Codigo</label>
-  <input type="text" name="code" id="code" required>
-  <label for="price">Precio</label>
-  <input type="text" name="price" id="price" pattern="[0-9]*" required>
-  <label for="stock">Stock</label>
-  <input type="text" name="stock" id="stock" pattern="[0-9]*" required>
-  <label for="category">Categoria</label>
-  <input type="text" name="category" id="category" required>
-  <label for="thumbnails">Cargar imagenes</label>
-  <input type="file" name="thumbnails" id="thumbnails" accept=".jpg, .jpeg, .png" />
-  <label for="status">Status</label>
-  <input type="radio" name="status" id="status" value="true">
-  <input type="radio" name="status" id="status" value="false" checked hidden>
-  <button type="submit" class="btn btn-primary">Submit</button>
+<form action='/api/products' method='post' enctype='multipart/form-data' id='addProduct'>
+  <label for='title'>Titulo</label>
+  <input type='text' name='title' id='title' required>
+  <label for='description'>Descripción</label>
+  <input type='text' name='description' id='description' required>
+  <label for='code'>Codigo</label>
+  <input type='text' name='code' id='code' required>
+  <label for='price'>Precio</label>
+  <input type='text' name='price' id='price' pattern='[0-9]*' required>
+  <label for='stock'>Stock</label>
+  <input type='text' name='stock' id='stock' pattern='[0-9]*' required>
+  <label for='category'>Categoria</label>
+  <input type='text' name='category' id='category' required>
+  <label for='thumbnails'>Cargar imagenes</label>
+  <input type='file' name='thumbnails' id='thumbnails' accept='.jpg, .jpeg, .png' />
+  <label for='status'>Status</label>
+  <input type='radio' name='status' id='status' value='true'>
+  <input type='radio' name='status' id='status' value='false' checked hidden>
+  <button type='submit' class='btn btn-primary'>Submit</button>
 </form>
-<div id="catalogue" class="d-flex flex-wrap">
+<div id='catalogue' class='d-flex flex-wrap'>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/realTimeProducts.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src='/socket.io/socket.io.js'></script>
+<script src='/js/realTimeProducts.js'></script>
 <script>
   switch ('{{status}}') {
     case ('success'):
       Swal.fire({
-        title: "Agregado!",
-        text: "Se agrego correctamente el producto",
+        title: 'Agregado!',
+        text: 'Se agrego correctamente el producto',
         icon: 'success'
-      });
+      })
       break
     case ('error'):
       Swal.fire({
         title: 'Ups!',
         text: '{{error}}',
         icon: 'error'
-      });
+      })
   }
 </script>

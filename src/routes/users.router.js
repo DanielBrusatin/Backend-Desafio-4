@@ -1,5 +1,5 @@
-import { Router } from "express";
-import UsersDao from "../daos/Mongo/users.dao.js";
+import { Router } from 'express'
+import UsersDao from '../daos/Mongo/users.dao.js'
 
 const router = Router()
 
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
       payload: users
     })
   } catch (error) {
-    console.log('Cannot get users whit mongoose' + error);
+    console.log('Cannot get users whit mongoose' + error)
     res.status(500).send({
       status: 500,
       result: 'error',

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import productManager from './productManager.js'
-import __dirname from "../../utils.js"
+import __dirname from '../../utils.js'
 class cartManager {
   constructor(path) {
     this.path = __dirname + path
@@ -41,7 +41,7 @@ class cartManager {
           //Busco el producto con el product manager, traigo todas sus propiedades y le agrego la propiedad quantity
           const product = { ...productManager.getProductById(productInCart.productId), quantity: productInCart.quantity }
           products.push(product)
-        });
+        })
         return products
       } else {
         throw new Error('404', { cause: `No existe el carrito con ID = ${id}` })

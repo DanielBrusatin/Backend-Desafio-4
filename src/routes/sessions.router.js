@@ -1,5 +1,5 @@
-import { Router } from "express";
-import UsersDao from "../daos/Mongo/users.dao.js";
+import { Router } from 'express'
+import UsersDao from '../daos/Mongo/users.dao.js'
 
 const router = Router()
 

@@ -27,3 +27,5 @@
     * Metodo DELETE en '/:cid' : Elimina todos los productos del carrito.
   * Vista de productos en **/products**: Vista de productos con paginación, opciones de filtro y botón en cada producto para agregar al carrito.
   * Vista de carrito en **/carts/:cid**: Vista de carrito con los productos agregados, con botones para eliminar cada producto y uno para vaciar el carrito. Para esta entrega se uso el **cid: 65d120e48d47167429465f50** hardcodeado para agregar los productos y para mostrar el carrito.
+* - [ ] Desafío 5: Implementación de login usando session y mongoStore.
+

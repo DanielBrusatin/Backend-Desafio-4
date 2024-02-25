@@ -1,7 +1,7 @@
-import express from "express"
-import axios from "axios";
-import UsersDao from "../daos/Mongo/users.dao.js";
-axios.defaults.baseURL = 'http://localhost:8080';
+import express from 'express'
+import axios from 'axios'
+import UsersDao from '../daos/Mongo/users.dao.js'
+axios.defaults.baseURL = 'http://localhost:8080'
 const router = express.Router()
 
 //Redirigir a home

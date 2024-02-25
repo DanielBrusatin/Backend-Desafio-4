@@ -4,11 +4,11 @@ import __dirname from './utils.js'
 import productsRouter from './routes/products.router.js'
 import cartsRouter from './routes/carts.router.js'
 import viewsRouter from './routes/views.router.js'
-import usersRouter from "./routes/users.router.js"
-import sessionsRouter from "./routes/sessions.router.js"
+import usersRouter from './routes/users.router.js'
+import sessionsRouter from './routes/sessions.router.js'
 import { Server } from 'socket.io'
 import ProductsDao from './daos/Mongo/products.dao.js'
-import MessagesDao from "./daos/Mongo/messages.dao.js"
+import MessagesDao from './daos/Mongo/messages.dao.js'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
@@ -18,7 +18,7 @@ import MongoStore from 'connect-mongo'
 const app = express()
 const port = 8080
 const httpServer = app.listen(port, () => {
-  console.log(`example listen in port ${port}`);
+  console.log(`example listen in port ${port}`)
 })
 const io = new Server(httpServer)
 
