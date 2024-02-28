@@ -58,7 +58,8 @@ app.use(express.static(__dirname + '/public'))
 io.on('connection', async socket => {
   console.log('nuevo cliente conectado') 
   //Envio evento para renderizar la lista de productos a la nueva conexion
-  socket.emit('products', (await ProductsDao.getProducts({})).payload)
+  const resp = await ProductsDao.getProducts({limit: 200})
+  socket.emit('products', resp.payload)
 
   //Escucho evento de nuevo mensaje
   socket.on('message', async message => {

@@ -29,10 +29,11 @@ router.post('/', upload.single('thumbnails'), async (req, res) => {
   let thumbnails = req.file?.filename
   try {
     await ProductsDao.addProduct({ ...req.body, thumbnails })
-    io.emit('products', await ProductsDao.getProducts({}))
-    res.redirect('/realtimeproducts?status=success')
+    const resp = await ProductsDao.getProducts({limit: 200})
+    io.emit('products', resp.payload)
+    res.status(200).send({ status: 'success', message: 'Producto agregado correctamente' })
   } catch (error) {
-    res.redirect(`/realtimeproducts?status=error&error=${error.cause}`)
+    res.status(error.message).send({ status: `error ${error.message}`, error: error.cause })
   }
 })
 
@@ -50,6 +51,8 @@ router.put('/:pid', async (req, res) => {
 router.delete('/:pid', async (req, res) => {
   try {
     await ProductsDao.deleteProduct(req.params.pid)
+    const resp = await ProductsDao.getProducts({limit: 200})
+    io.emit('products', resp.payload)
     res.status(200).send({ status: 'success', message: 'Producto eliminado correctamente' })
   } catch (error) {
     res.status(error.message).send({ status: `error ${error.message}`, error: error.cause })

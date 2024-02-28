@@ -25,7 +25,11 @@
       </button>
       {{/if}}
     </div>
-    <img class='card-img-top card-img' src='/images/products/{{this.thumbnails}}' />
+    {{#if this.thumbnails}}
+    <img class="card-img-top card-img" src='/images/products/{{this.thumbnails}}' />
+    {{else}}
+    <img class="card-img-top card-img" src='/images/products/undefined.jpg' />
+    {{/if}}
     <div class='card-body'>
       <div class='card-title h5'>{{this.title}}</div>
       <div class='mb-2 text-muted card-subtitle h6'>Precio: ${{this.price}}</div>
