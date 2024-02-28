@@ -49,8 +49,17 @@ router.get('/carts/:cid', async (req, res) => {
 })
 
 //Mostrar en tiempo real los productos
-router.get('/realtimeproducts', (req, res) => {
-  res.render('realTimeProducts')
+router.get('/realtimeproducts', async(req, res) => {
+  if(req.session.user){
+    const user = await UsersDao.getUserById(req.session.user)
+    if (user.rol == 'admin') {
+      res.render('realTimeProducts')
+    } else {
+      res.render('401')
+    }
+  } else {
+    res.redirect('/login')
+  }
 })
 
 //Chat con websocket
