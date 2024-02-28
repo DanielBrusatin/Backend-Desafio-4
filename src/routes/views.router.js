@@ -55,7 +55,7 @@ router.get('/realtimeproducts', async(req, res) => {
     if (user.rol == 'admin') {
       res.render('realTimeProducts')
     } else {
-      res.render('401')
+      res.render('403')
     }
   } else {
     res.redirect('/login')
