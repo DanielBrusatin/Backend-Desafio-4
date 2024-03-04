@@ -1,16 +1,20 @@
 import { Router } from 'express'
 import UsersDao from '../daos/Mongo/users.dao.js'
+import passport from 'passport'
 
 const router = Router()
 
 //Ruta de registro
-router.post('/register', async (req, res) => {
-  try {
-    await UsersDao.addUser(req.body)
-    res.redirect('/register?status=success')
-  } catch (error) {
-    res.redirect(`/register?status=error&error=${error.cause}`)
-  }
+router.post('/register', (req, res) => {
+  passport.authenticate('register', (error, user, info) => {
+    if (error) {
+      return res.redirect(`/register?status=error&error=${error}`)
+    }
+    if (!user) {
+      return res.redirect(`/register?status=error&error=${info}`)
+    }
+    return res.redirect('/register?status=success')
+  })(req, res)
 })
 
 //Ruta para login

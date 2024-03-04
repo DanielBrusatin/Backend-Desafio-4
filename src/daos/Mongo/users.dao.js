@@ -1,15 +1,16 @@
+import { checkPassword, hashPassword } from '../../utils.js'
 import Users from '../models/user.model.js'
 import bcrypt from 'bcrypt'
 const saltRounds = 10
 
 class UsersDao {
 
+  //Obtener un usuario por su email y contraseña
   static async getUserByCreds({ email, password }) {
     if (email && password) {
       const user = await Users.findOne({ email })
       if (user) {
-        const match = bcrypt.compare(password, user.password)
-        if (match) {
+        if (checkPassword(user, password)) {
           return user
         } else {
           throw new Error('400', { cause: 'Contraseña incorrecta' })
@@ -22,10 +23,12 @@ class UsersDao {
     }
   }
 
+  //Obtener un usuario por su ID
   static async getUserById(uid) {
     return await Users.findById(uid, { first_name: 1, last_name: 1, age: 1, email: 1, rol: 1 }).lean()
   }
 
+  //Agregar un usuario nuevo
   static async addUser({ first_name, last_name, age, email, password }) {
     const newUser = {
       first_name,
@@ -44,15 +47,8 @@ class UsersDao {
     if (await Users.countDocuments({ email })) {
       throw new Error('400', { cause: `Ya existe un usuario con el email ${email}` })
     } else {
-      try {
-        bcrypt.hash(password, saltRounds)
-          .then(async (hash) => {
-            newUser.password = hash
-            await new Users(newUser).save()
-          })
-      } catch {
-        throw new Error('500', { cause: 'No se pudo crear el usuario, intentar nuevamente.' })
-      }
+      newUser.password = hashPassword(password)
+      await new Users(newUser).save()
     }
   }
 }
