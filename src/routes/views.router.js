@@ -9,29 +9,29 @@ router.get('/', (req, res) => {
   res.redirect('/products')
 })
 
-//Homepage
+//Login
 router.get('/login', (req, res) => {
-  if(req.session.user){
-    res.redirect('/products')
-  } else {
-    res.render('login', {status: req.query.status, error: req.query.error})
-  }
+  //Obtengo el ultimo mensaje de error enviado desde passport  
+  const error = req.session.messages?.pop()
+  res.render('login', { status: req.query.status, error })
 })
 
 //Registro
 router.get('/register', (req, res) => {
-  res.render('register', {status: req.query.status, error: req.query.error})
+  //Obtengo el ultimo mensaje de error enviado desde passport
+  const error = req.session.messages?.pop()
+  res.render('register', { status: req.query.status, error: error })
 })
 
 //Mostrar lista de productos
 router.get('/products', async (req, res) => {
-  if(req.session.user){
+  if (req.session.user) {
     const user = await UsersDao.getUserById(req.session.user)
     axios.get('/api/products', {
       params: req.query
     })
-    .then(response => res.render('products', {...response.data, ...user, isAdmin: user.rol == 'admin'}))
-    .catch(error => console.log(error))
+      .then(response => res.render('products', { ...response.data, ...user, isAdmin: user.rol == 'admin' }))
+      .catch(error => console.log(error))
   } else {
     res.redirect('/login')
   }
@@ -39,18 +39,18 @@ router.get('/products', async (req, res) => {
 
 //Mostrar carrito
 router.get('/carts/:cid', async (req, res) => {
-  if(req.session.user){
+  if (req.session.user) {
     axios.get(`/api/carts/${req.params.cid}`)
-    .then(response => res.render('cart', response.data.payload))
-    .catch(error => console.log(error))
+      .then(response => res.render('cart', response.data.payload))
+      .catch(error => console.log(error))
   } else {
     res.redirect('/login')
   }
 })
 
 //Mostrar en tiempo real los productos
-router.get('/realtimeproducts', async(req, res) => {
-  if(req.session.user){
+router.get('/realtimeproducts', async (req, res) => {
+  if (req.session.user) {
     const user = await UsersDao.getUserById(req.session.user)
     if (user.rol == 'admin') {
       res.render('realTimeProducts')
