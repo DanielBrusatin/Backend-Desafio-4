@@ -1,5 +1,6 @@
 import passport from "passport"
 import local from "passport-local"
+import GitHubStrategy from "passport-github2";
 import { checkPassword, hashPassword } from "../utils.js"
 import Users from '../daos/models/user.model.js'
 
@@ -27,7 +28,7 @@ const initializePassport = () => {
         newUser.password = hashPassword(password)
         const result = await Users.create(newUser)
         return done(null, result)
-      //Si falla el proceso en algún momento lanzo la info del error
+        //Si falla el proceso en algún momento lanzo la info del error
       } catch (error) {
         return done(`Error al obtener el usuario: ${error}`)
       }
@@ -52,6 +53,33 @@ const initializePassport = () => {
       }
     }
   ))
+
+  //Estrategia de login con Github
+  passport.use('github', new GitHubStrategy({
+    clientID: 'Iv1.b5ec0ab80c834e95',
+    clientSecret: '14f9764ba9839a1ed6f31d3ce37d131c35141e8f',
+    callbackURL: 'http://localhost:8080/api/sessions/githubcallback'
+  }, async (accessToken, refreshToken, profile, done) => {
+    try {
+      //Busco si existe un usuario ya registrado en mi DB con ese email
+      const user = await Users.findOne({ email: profile._json.email })
+      //Si existe, devuelvo ese usuario
+      if (user) return done(null, user)
+      //Si no existe creo uno nuevo con los datos obtenidos de Github y rellenando los que no me envía.
+      const newUser = {
+        first_name: profile._json.name,
+        last_name: ' ',
+        age: 18,
+        email: profile._json.email,
+        password: ''
+      }
+      const result = await Users.create(newUser)
+      return done(null, result)
+      //Si falla el proceso en algún momento lanzo la info del error
+    } catch (error) {
+      return done(`Error al obtener el usuario: ${error}`)
+    }
+  }))
 
   passport.serializeUser((user, done) => {
     done(null, user._id)

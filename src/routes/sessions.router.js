@@ -11,7 +11,16 @@ router.post('/register', passport.authenticate('register', {
 }))
 
 //Ruta para login
-router.post('/login', passport.authenticate('login', {failureRedirect: '/login?status=error', failureMessage: true}), (req, res) => {
+router.post('/login', passport.authenticate('login', { failureRedirect: '/login?status=error', failureMessage: true }), (req, res) => {
+  req.session.user = req.user._id
+  return res.redirect('/login?status=success')
+})
+
+//Ruta para login con Github
+router.get('/github', passport.authenticate('github', { scope: ['user: email'] }), async (req, res) => { })
+
+//Ruta callback de Github
+router.get('/githubcallback', passport.authenticate('github', { failureRedirect: '/login?status=error', failureMessage: true }), (req, res) => {
   req.session.user = req.user._id
   return res.redirect('/login?status=success')
 })
