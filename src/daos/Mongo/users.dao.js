@@ -25,7 +25,7 @@ class UsersDao {
 
   //Obtener un usuario por su ID
   static async getUserById(uid) {
-    return await Users.findById(uid, { first_name: 1, last_name: 1, age: 1, email: 1, rol: 1 }).lean()
+    return await Users.findById(uid, { first_name: 1, last_name: 1, age: 1, email: 1, role: 1 }).lean()
   }
 
   //Agregar un usuario nuevo

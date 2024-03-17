@@ -30,7 +30,7 @@ router.get('/products', async (req, res) => {
     axios.get('/api/products', {
       params: req.query
     })
-      .then(response => res.render('products', { ...response.data, ...user, isAdmin: user.rol == 'admin' }))
+      .then(response => res.render('products', { ...response.data, ...user, isAdmin: user.role == 'admin' }))
       .catch(error => console.log(error))
   } else {
     res.redirect('/login')
@@ -52,7 +52,7 @@ router.get('/carts/:cid', async (req, res) => {
 router.get('/realtimeproducts', async (req, res) => {
   if (req.session.user) {
     const user = await UsersDao.getUserById(req.session.user)
-    if (user.rol == 'admin') {
+    if (user.role == 'admin') {
       res.render('realTimeProducts')
     } else {
       res.render('403')

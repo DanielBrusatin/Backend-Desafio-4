@@ -24,10 +24,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: true
   },
-  rol: {
+  role: {
     type: String,
     default: 'usuario'
-  }
+  },
+  cart: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'carts'
+  },
 })
 
 export default mongoose.model(usersCollection, userSchema)
