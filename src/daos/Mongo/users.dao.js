@@ -1,7 +1,5 @@
 import { checkPassword, hashPassword } from '../../utils.js'
 import Users from '../models/user.model.js'
-import bcrypt from 'bcrypt'
-const saltRounds = 10
 
 class UsersDao {
 

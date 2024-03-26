@@ -1,8 +1,11 @@
-import passport from "passport"
-import local from "passport-local"
-import GitHubStrategy from "passport-github2";
-import { checkPassword, hashPassword } from "../utils.js"
+import passport from 'passport'
+import local from 'passport-local'
+import GitHubStrategy from 'passport-github2'
+import { checkPassword, hashPassword } from '../utils.js'
 import Users from '../daos/models/user.model.js'
+import { githubCallbackUrl, githubClientId, githubClientSecret } from './config.js'
+
+
 
 const LocalStrategy = local.Strategy
 const initializePassport = () => {
@@ -56,9 +59,9 @@ const initializePassport = () => {
 
   //Estrategia de login con Github
   passport.use('github', new GitHubStrategy({
-    clientID: 'Iv1.b5ec0ab80c834e95',
-    clientSecret: '14f9764ba9839a1ed6f31d3ce37d131c35141e8f',
-    callbackURL: 'http://localhost:8080/api/sessions/githubcallback'
+    clientID: githubClientId,
+    clientSecret: githubClientSecret,
+    callbackURL: githubCallbackUrl
   }, async (accessToken, refreshToken, profile, done) => {
     try {
       //Busco si existe un usuario ya registrado en mi DB con ese email

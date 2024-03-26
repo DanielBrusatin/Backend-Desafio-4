@@ -32,4 +32,6 @@
   * Brcypt para realizar hasheo de contraseña.
   * Implementación de passport para login y registro.
   * Implementación de login a través de Github.
-* - [ ] Segunda práctica integradora.
+* - [x] Segunda práctica integradora.
+* - [ ] Desafío 7: Implementación de dotenv para variables de entorno.
+

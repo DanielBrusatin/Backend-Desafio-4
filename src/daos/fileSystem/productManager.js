@@ -1,5 +1,6 @@
 import fs from 'fs'
 import __dirname from '../../utils.js'
+
 class ProductManager {
   constructor(path) {
     this.path = __dirname + path

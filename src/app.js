@@ -15,6 +15,7 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from 'passport'
 import initializePassport from './config/passport.config.js'
+import { mongoPassword, mongoSecret, mongoUser } from './config/config.js'
 
 
 //Inicializo app y creo los servidores http y socket
@@ -31,10 +32,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(session({
   store: MongoStore.create({
-    mongoUrl:'mongodb+srv://danielbrusatindb:36262146@cluster0.ks7k4pq.mongodb.net/ecommerce?retryWrites=true&w=majority',
+    mongoUrl:`mongodb+srv://${mongoUser}:${mongoPassword}@cluster0.ks7k4pq.mongodb.net/ecommerce?retryWrites=true&w=majority`,
     ttl: 1500
   }),
-  secret: 'S3CR3TC0D3',
+  secret: mongoSecret,
   resave: true,
   saveUninitialized:false
 }))
@@ -50,7 +51,7 @@ app.use('/api/sessions', sessionsRouter)
 app.use('/', viewsRouter)
 
 //Mongo
-mongoose.connect('mongodb+srv://danielbrusatindb:36262146@cluster0.ks7k4pq.mongodb.net/ecommerce?retryWrites=true&w=majority')
+mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@cluster0.ks7k4pq.mongodb.net/ecommerce?retryWrites=true&w=majority`)
 
 //Handlebars
 app.engine('handlebars', handlebars.engine())
