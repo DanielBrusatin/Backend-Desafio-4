@@ -2,7 +2,7 @@ import passport from 'passport'
 import local from 'passport-local'
 import GitHubStrategy from 'passport-github2'
 import { checkPassword, hashPassword } from '../utils.js'
-import Users from '../daos/models/user.model.js'
+import Users from '../daos/Mongo/models/user.model.js'
 import { githubCallbackUrl, githubClientId, githubClientSecret } from './config.js'
 
 

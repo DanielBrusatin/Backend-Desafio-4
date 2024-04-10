@@ -1,5 +1,5 @@
 import { checkPassword, hashPassword } from '../../utils.js'
-import Users from '../models/user.model.js'
+import Users from './models/user.model.js'
 
 class UsersDao {
 

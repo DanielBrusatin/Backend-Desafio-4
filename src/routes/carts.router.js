@@ -1,5 +1,8 @@
 import express from 'express'
 import CartsDao from '../daos/Mongo/carts.dao.js'
+import { ticketsService } from "../repositories/index.js";
+import ProductsDao from '../daos/Mongo/products.dao.js';
+import Users from "../daos/Mongo/models/user.model.js";
 const router = express.Router()
 
 //Crear carrito
@@ -67,6 +70,18 @@ router.delete('/:cid', async(req, res) =>{
   try {
     await CartsDao.clearCart(req.params.cid)
     res.status(200).send({ status: 'success', message: 'Carrito vaciado correctamente' })
+  } catch (error) {
+    res.status(error.message).send({ status: `error ${error.message}`, error: error.cause })
+  }
+})
+
+//Crear ticket
+router.get('/:cid/purchase', async(req, res) =>{
+  try {
+    const cart = await CartsDao.getCartById(req.params.cid)
+    const user = await Users.findById(req.session.user, { email: 1})
+    await ticketsService.createTicket(cart, user)
+    res.status(200).send({ status: 'success', message: 'Ticket creado correctamente' })
   } catch (error) {
     res.status(error.message).send({ status: `error ${error.message}`, error: error.cause })
   }

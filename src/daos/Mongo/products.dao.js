@@ -1,4 +1,4 @@
-import Products from '../models/product.model.js'
+import Products from './models/product.model.js'
 
 class ProductsDao {
 

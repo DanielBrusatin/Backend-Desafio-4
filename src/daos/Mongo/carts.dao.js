@@ -1,4 +1,4 @@
-import Carts from '../models/cart.model.js'
+import Carts from './models/cart.model.js'
 import ProductsDao from './products.dao.js'
 
 class CartsDao {
