@@ -11,14 +11,13 @@ export default class TicketRepository {
 
     //Verifico stock de productos
     const ticket = new TicketDTO(cart)
-    console.log(ticket.productsWithStock);
-    console.log('---------------------');
-    console.log(ticket.total);
 
-    if (!ticket.total) return null
+    //Si no hay total es porque no hay productos disponibles, no creo el ticket
+    if (!ticket.total) throw new Error(('404', { cause: 'No hay stock disponible' }))
 
-    const result = await this.dao.create(user.email, ticket.total)
+    const result = await this.dao.createTicket(user.email, ticket.total)
 
+    //Si se creo el ticket correctamente actualizo el stock y borro del carrito los productos comprados.
     if (result) {
       for (const product of ticket.productsWithStock) {
         await ProductsDao.updateProduct(product.id, { stock: product.stock - product.quantity })
@@ -26,7 +25,6 @@ export default class TicketRepository {
       }
       return 
     }
-    //resto stock de productos
-    //devuelvo los productos no agregados
+    throw new Error(('500', { cause: 'Error al crear el ticket' }))
   }
 }

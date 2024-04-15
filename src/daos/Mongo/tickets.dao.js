@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 export default class Tickets {
   constructor() {}
 
-  create = async (email, total) => {
+  createTicket = async (email, total) => {
     const ticket = {
       code: uuidv4(),
       purchase_datetime: new Date(),
